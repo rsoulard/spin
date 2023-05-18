@@ -1,8 +1,11 @@
 name: Release
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
+    tags:
+      - "*.*.*"
 
 jobs:
   build:
@@ -20,16 +23,35 @@ jobs:
     - name: Zip on Windows
       if: matrix.os == 'windows-latest'
       run: |
-        Compress-Archive target/release/spin.exe target/release/output.zip
+        Compress-Archive target/release/spin.exe target/release/spin-${{ runner.os }}-${{ github.ref_name }}.zip
     
     - name: Zip on Nix
       if: matrix.os != 'windows-latest'
       run: |
-        zip target/release/output.zip target/release/spin
+        zip target/release/spin-${{ runner.os }}-${{ github.ref_name }}.zip target/release/spin
         
     - uses: actions/upload-artifact@v3
       with:
         name: spin-${{ matrix.os }}
         path: target/release/*.zip
         retention-days: 1
+        
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/download-artifact@v3
+      
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ github.ref_name }}"
+          prerelease: true
+          title: "spin ${{ github.ref_name }}"
+          files: |
+            spin-windows-latest/*.zip
+            spin-macos-latest/*.zip
+            spin-ubuntu-latest/*.zip
+            
       
