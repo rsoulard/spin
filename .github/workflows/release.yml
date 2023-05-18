@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build
+      run: cargo build --release
+      
+    - name: Zip on Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        Compress-Archive spin/target/release/spin.exe spin/target/release/output.zip
+    
+    - name: Tar on Nix
+      if: matrix.os != 'windows-latest'
+      run: |
+        zip -u spin/target/release/output.zip spin/target/release/spin
+        
+    - uses: actions/upload-artifact@v3
+      with:
+        name: spin-${{ matrix.os }}
+        path: spin/target/release/*.zip
+        retention-days: 1
+      
