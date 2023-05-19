@@ -27,11 +27,17 @@ mod post_process;
 /// 
 /// let output = spin::generate(&arguments);
 /// ```
-pub fn generate(arguments: &Arguments) -> String {
-    let output = match &arguments.command {
+pub fn run(arguments: &Arguments) {
+    for _count in 0..arguments.repeat {
+        generate(arguments);
+    }
+}
+
+fn generate(arguments: &Arguments) {
+    let generation = match &arguments.command {
         Commands::Echo(echo_arguments)=> echo::echo(echo_arguments),
         Commands::Uuid => uuid::uuid()
     };
 
-    post_process::post_process(output, arguments)
+    println!("{}", post_process::post_process(generation, arguments));
 }

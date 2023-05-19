@@ -7,11 +7,17 @@ use crate::echo;
 #[command(about = "A CLI string generation tool", long_about = None)]
 pub struct Arguments {
     /// Surround the output with double quotes
-    #[arg(short = 'd', long, conflicts_with = "single_quotes", )]
+    #[arg(short, long, conflicts_with = "single_quotes", )]
     pub double_quotes: bool,
-    /// Surround the output with double quotes
-    #[arg(short = 's', long, conflicts_with = "double_quotes")]
+
+    /// Surround the output with single quotes
+    #[arg(short, long, conflicts_with = "double_quotes")]
     pub single_quotes: bool,
+
+    /// Repeat the generation
+    #[arg(short, long, value_name = "COUNT", default_value_t = 1)]
+    pub repeat: usize,
+
     #[command(subcommand)]
     pub command: Commands
 }
