@@ -87,4 +87,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- Acknowledgments -->
 ## Acknowledgments
 
-Thanks to the contributors and maintainers of the [https://github.com/clap-rs/clap](clap) package for Rust.
+Thanks to the contributors and maintainers of the [clap](https://github.com/clap-rs/clap) package for Rust.
