@@ -1,7 +1,7 @@
 <!-- Intro -->
 <br />
 <div align="center">
-  <img src="images/icon.png" alt="Logo" width="80" height="80"/>
+  <img src="images/icon.png" alt="Logo" width="100" height="100"/>
   <h3 align="center">Spin</h3>
   <p align="center">A command line string generation tool</p>
 </div>
