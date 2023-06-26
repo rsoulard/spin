@@ -25,7 +25,7 @@ mod post_process;
 ///     })
 /// };
 /// 
-/// let output = spin::generate(&arguments);
+/// let output = spin::run(&arguments);
 /// ```
 pub fn run(arguments: &Arguments) {
     for _count in 0..arguments.repeat {
