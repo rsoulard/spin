@@ -1,6 +1,7 @@
 <!-- Intro -->
 <br />
 <div align="center">
+  <img source="images/icon.png" alt="Logo" width="80" height="80"/>
   <h3 align="center">Spin</h3>
   <p align="center">A command line string generation tool</p>
 </div>
