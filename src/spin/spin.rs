@@ -20,6 +20,7 @@ mod post_process;
 /// let arguments = Arguments {
 ///     double_quotes: true,
 ///     single_quotes: false,
+///     repeat: 1,
 ///     command: Commands::Echo(EchoArguments {
 ///         input: String::from("example")
 ///     })
